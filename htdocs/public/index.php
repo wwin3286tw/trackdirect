@@ -196,34 +196,34 @@
             </a>
 
             <div class="dropdown">
-                <button class="dropbtn">Tail length
+                <button class="dropbtn">軌跡長度
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content" id="tdTopnavTimelength">
                     <?php if (isSourceIdUsed(5)) : ?>
-                    <a href="javascript:void(0);" id="tdTopnavTimelengthDefault" onclick="trackdirect.setTimeLength(10); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">10 minutes</a>
+                    <a href="javascript:void(0);" id="tdTopnavTimelengthDefault" onclick="trackdirect.setTimeLength(10); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">10 分鐘</a>
                     <? else : ?>
-                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(10); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">10 minutes</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(10); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">10 分鐘</a>
                     <?php endif; ?>
 
-                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(30); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">30 minutes</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(30); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">30 分鐘</a>
 
                     <?php if (isSourceIdUsed(5)) : ?>
-                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(60); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">1 hour</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(60); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">1 小時</a>
                     <?php else : ?>
-                    <a href="javascript:void(0);" id="tdTopnavTimelengthDefault" onclick="trackdirect.setTimeLength(60); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">1 hour</a>
+                    <a href="javascript:void(0);" id="tdTopnavTimelengthDefault" onclick="trackdirect.setTimeLength(60); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">1 小時</a>
                     <?php endif; ?>
 
-                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(180); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">3 hours</a>
-                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(360); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">6 hours</a>
-                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(720); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox dropdown-content-checkbox-only-filtering dropdown-content-checkbox-hidden">12 hours</a>
-                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(1080); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox dropdown-content-checkbox-only-filtering dropdown-content-checkbox-hidden">18 hours</a>
-                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(1440); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox dropdown-content-checkbox-only-filtering dropdown-content-checkbox-hidden">24 hours</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(180); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">3 小時</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(360); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">6 小時</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(720); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox dropdown-content-checkbox-only-filtering">12 小時</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(1080); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox dropdown-content-checkbox-only-filtering">18 小時</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setTimeLength(1440); $('#tdTopnavTimelength>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox dropdown-content-checkbox-only-filtering">24 小時</a>
                 </div>
             </div>
 
             <div class="dropdown">
-                <button class="dropbtn">Map API
+                <button class="dropbtn">地圖 API
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
@@ -239,33 +239,33 @@
 
             <?php if ($mapapi != 'leaflet-vector') : ?>
             <div class="dropdown">
-                <button class="dropbtn">Map Type
+                <button class="dropbtn">地圖類型
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content" id="tdTopnavMapType">
-                    <a href="javascript:void(0);" onclick="trackdirect.setMapType('roadmap'); $('#tdTopnavMapType>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox dropdown-content-checkbox-active">Roadmap</a>
-                    <a href="javascript:void(0);" onclick="trackdirect.setMapType('terrain'); $('#tdTopnavMapType>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">Terrain/Outdoors</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setMapType('roadmap'); $('#tdTopnavMapType>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox dropdown-content-checkbox-active">路網圖</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setMapType('terrain'); $('#tdTopnavMapType>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">地形/戶外</a>
                     <?php if ($mapapi == 'google' || getWebsiteConfig('leaflet_raster_tile_satellite') != null) : ?>
-                    <a href="javascript:void(0);" onclick="trackdirect.setMapType('satellite'); $('#tdTopnavMapType>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">Satellite</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.setMapType('satellite'); $('#tdTopnavMapType>a').removeClass('dropdown-content-checkbox-active'); $(this).addClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox">衛星</a>
                     <?php endif; ?>
                 </div>
             </div>
             <?php endif; ?>
 
             <div class="dropdown">
-                <button class="dropbtn">Settings
+                <button class="dropbtn">設定
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content" id="tdTopnavSettings">
-                    <a href="javascript:void(0);" onclick="trackdirect.toggleImperialUnits(); $(this).toggleClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox <?php echo (isImperialUnitUser()?'dropdown-content-checkbox-active':''); ?>" title="Switch to imperial units">Use imperial units</a>
-                    <a href="javascript:void(0);" onclick="trackdirect.toggleStationaryPositions(); $(this).toggleClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox" title="Hide stations that is not moving">Hide not moving stations</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.toggleImperialUnits(); $(this).toggleClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox <?php echo (isImperialUnitUser()?'dropdown-content-checkbox-active':''); ?>" title="Switch to imperial units">使用英制單位</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.toggleStationaryPositions(); $(this).toggleClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox" title="Hide stations that is not moving">隱藏不移動的站台</a>
 
                     <?php if (isSourceIdUsed(1)) : ?>
-                    <a href="javascript:void(0);" onclick="trackdirect.toggleInternetPositions(); $(this).toggleClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox" title="Hide stations that sends packet using TCP/UDP">Hide Internet stations</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.toggleInternetPositions(); $(this).toggleClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox" title="Hide stations that sends packet using TCP/UDP">隱藏網路站台</a>
                     <?php endif; ?>
 
                     <?php if (isSourceIdUsed(2)) : ?>
-                    <a href="javascript:void(0);" onclick="trackdirect.toggleCwopPositions(); $(this).toggleClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox" title="Hide CWOP weather stations">Hide CWOP stations</a>
+                    <a href="javascript:void(0);" onclick="trackdirect.toggleCwopPositions(); $(this).toggleClass('dropdown-content-checkbox-active');" class="dropdown-content-checkbox" title="Hide CWOP weather stations">隱藏公民氣象觀察員計劃站台</a>
                     <?php endif; ?>
 
                     <?php if (isSourceIdUsed(5)) : ?>
@@ -276,7 +276,7 @@
             </div>
 
             <div class="dropdown">
-                <button class="dropbtn">Other
+                <button class="dropbtn">其他
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
@@ -285,33 +285,33 @@
                         class="tdlink"
                         onclick="$(this).attr('href', '/views/search.php?imperialUnits=' + (trackdirect.isImperialUnits()?'1':'0'))"
                         title="Search for a station/vehicle here!">
-                        Station search
+                        站台搜尋
                     </a>
 
                     <a href="/views/latest.php"
                         class="tdlink"
                         onclick="$(this).attr('href', '/views/latest.php?imperialUnits=' + (trackdirect.isImperialUnits()?'1':'0'))"
                         title="List latest heard stations!">
-                        Latest heard
+                        最新聽到
                     </a>
 
                     <?php if (isAllowedToShowOlderData()) : ?>
                     <a href="javascript:void(0);"
                         onclick="$('#modal-timetravel').show();"
                         title="Select date and time to show what the map looked like then">
-                        Travel in time
+                        時光旅行
                     </a>
                     <?php endif; ?>
 
 
                     <?php if (isSourceIdUsed(1)) : ?>
                     <a class="triple-notselected" href="#" onclick="trackdirect.togglePHGCircles(); return false;" title="Show PHG cirlces, first click will show half PGH circles and second click will show full PHG circles.">
-                        Toggle PHG circles
+                        顯示/隱藏 PHG 傳輸範圍
                     </a>
                     <?php endif; ?>
 
                     <a href="/views/about.php" class="tdlink" title="More about this website">
-                        About
+                        關於
                     </a>
                 </div>
             </div>
@@ -360,7 +360,7 @@
             <div class="modal-content">
                 <div class="modal-content-header">
                     <span class="modal-close" onclick="$('#modal-timetravel').hide();">&times;</span>
-                    <span class="modal-title">Travel in time</h2>
+                    <span class="modal-title">時光旅行</h2>
                 </div>
                 <div class="modal-content-body" style="margin: 0px 20px 20px 20px;">
                     <?php if (!isAllowedToShowOlderData()) : ?>
@@ -370,10 +370,9 @@
                             </p>
                         </div>
                     <?php else : ?>
-                        <p>Select date and time to show map data for (enter time for your locale time zone). The regular time length select box can still be used to select how old data that should be shown (relative to selected date and time).</p>
-                        <p>*Note that the heatmap will still based on data from the latest hour (not the selected date and time).</p>
-                        <p>Date and time:</p>
-
+                            <p>選擇顯示地圖資料的日期和時間（輸入您所在地區時區的時間）。常規時間長度選擇框仍可用於選擇應顯示多長時間的資料（相對於選定的日期和時間）。 </p>
+                            <p>*請注意，熱圖仍將基於最近一小時的資料（而不是選定的日期和時間）。 </p>
+                            <p>日期和時間：</p>
                         <form id="timetravel-form">
                             <select id="timetravel-date" class="timetravel-select form-control"
                                 <option value="0" selected>Select date</option>
@@ -430,6 +429,7 @@
                 </div>
             </div>
         </div>
+
 
         <div id="bottominfo-container">
             <div style="margin-left: 10px; width: 350px;">
