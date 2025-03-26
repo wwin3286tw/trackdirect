@@ -27,20 +27,10 @@ def validate_config_file(config_file):
         print("\nUsage: script.py [config.ini]")
         sys.exit()
 
-def drop_table_if_exists(cursor, table_name, logger, db_finder):
-    try:
-        if db_finder.check_table_exists(table_name):  # 確保表存在
-            cursor.execute(f"DROP TABLE IF EXISTS {table_name}")  # 使用 IF EXISTS 避免錯誤
-            logger.info(f"Dropped table {table_name}")
-    except Exception as e:
-        logger.error(f"Error dropping table {table_name}: {str(e)}", exc_info=True)
-
-def table_exists(cursor, table_name):
-    """
-    確認 PostgreSQL 內是否有這個表，避免 UndefinedTable 錯誤
-    """
-    cursor.execute("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name=%s);", (table_name,))
-    return cursor.fetchone()[0]
+def drop_table_if_exists(cursor, table_name, logger):
+    if DatabaseObjectFinder.check_table_exists(table_name):
+        cursor.execute(f"DROP TABLE {table_name}")
+        logger.info(f"Dropped table {table_name}")
 
 def main():
     if len(sys.argv) < 2:
@@ -82,6 +72,7 @@ def main():
         # Loop over the latest days and delete packets that are not needed anymore
         for x in range(2, 16):
             prev_day = datetime.date.today() - datetime.timedelta(x)
+            prev_day_timestamp = int(prev_day.strftime("%s"))
             prev_day_format = prev_day.strftime('%Y%m%d')
             packet_table = f"packet{prev_day_format}"
 
@@ -109,7 +100,6 @@ def main():
             prev_day_format = prev_day.strftime('%Y%m%d')
             packet_table = f"packet{prev_day_format}_weather"
             drop_table_if_exists(cursor, packet_table, logger, track_direct_db_object_finder)
-
         # Drop packet_telemetry
         for x in range(max_days_to_save_telemetry_data, max_days_to_save_telemetry_data + 100):
             prev_day = datetime.date.today() - datetime.timedelta(x)
@@ -117,12 +107,39 @@ def main():
             packet_table = f"packet{prev_day_format}_telemetry"
             drop_table_if_exists(cursor, packet_table, logger, track_direct_db_object_finder)
 
+        # Drop packets
+        for x in range(max_days_to_save_position_data, max_days_to_save_position_data + 100):
+            prev_day = datetime.date.today() - datetime.timedelta(x)
+            prev_day_format = prev_day.strftime('%Y%m%d')
+            packet_table = f"packet{prev_day_format}"
+
+            drop_table_if_exists(cursor, f"{packet_table}_ogn", logger, track_direct_db_object_finder)
+            drop_table_if_exists(cursor, f"{packet_table}_path", logger, track_direct_db_object_finder)
+            drop_table_if_exists(cursor, packet_table, logger, track_direct_db_object_finder)
+
         # Delete old stations
         timestamp_limit = int(time.time()) - (60 * 60 * 24 * max_days_to_save_station_data)
         deleted_rows = 0
         sql = """SELECT station.id, station.latest_sender_id, station.name
                  FROM station
-                 WHERE latest_packet_timestamp < %s"""
+                 WHERE latest_packet_timestamp < %s
+                 AND (
+                     EXISTS (
+                         SELECT 1
+                         FROM sender
+                         WHERE sender.id = station.latest_sender_id
+                         AND sender.name != station.name
+                     )
+                     OR
+                     NOT EXISTS (
+                         SELECT 1
+                         FROM station station2, sender
+                         WHERE sender.id = station.latest_sender_id
+                         AND station2.latest_sender_id = sender.id
+                         AND station2.name != sender.name
+                     )
+                 )
+                 ORDER BY latest_packet_timestamp"""
 
         select_station_cursor = db.cursor()
         select_station_cursor.execute(sql, (timestamp_limit,))
@@ -130,10 +147,8 @@ def main():
             logger.info(f"Trying to delete station {record['name']} ({record['id']})")
             delete_cursor = db_no_auto_commit.cursor()
             try:
-                for table in ['station_telemetry_bits', 'station_telemetry_eqns', 'station_telemetry_param',
-                              'station_telemetry_unit', 'station_city']:
-                    if table_exists(delete_cursor, table):  # 先檢查表是否存在
-                        delete_cursor.execute(f"DELETE FROM {table} WHERE station_id = %s", (record["id"],))
+                for table in ['station_telemetry_bits', 'station_telemetry_eqns', 'station_telemetry_param', 'station_telemetry_unit', 'station_city']:
+                    delete_cursor.execute(f"DELETE FROM {table} WHERE station_id = %s", (record["id"],))
 
                 delete_cursor.execute("DELETE FROM station WHERE id = %s", (record["id"],))
                 delete_cursor.execute("DELETE FROM sender WHERE id = %s AND NOT EXISTS (SELECT 1 FROM station WHERE latest_sender_id = sender.id)", (record["latest_sender_id"],))
@@ -141,7 +156,7 @@ def main():
                 db_no_auto_commit.commit()
                 delete_cursor.close()
                 deleted_rows += 1
-                time.sleep(0.01)
+                time.sleep(0.5)
             except Exception as e:
                 logger.error(e, exc_info=1)
                 db_no_auto_commit.rollback()
@@ -156,6 +171,7 @@ def main():
         cursor.execute("VACUUM ANALYZE sender")
         cursor.execute("REINDEX TABLE sender")
 
+        # Close DB connection
         cursor.close()
         db.close()
         logger.info("Done!")
