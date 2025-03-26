@@ -27,10 +27,14 @@ def validate_config_file(config_file):
         print("\nUsage: script.py [config.ini]")
         sys.exit()
 
-def drop_table_if_exists(cursor, table_name, logger):
-    if DatabaseObjectFinder.check_table_exists(table_name):
-        cursor.execute(f"DROP TABLE {table_name}")
-        logger.info(f"Dropped table {table_name}")
+def drop_table_if_exists(cursor, table_name, logger, db_finder):
+     try:
+         if db_finder.check_table_exists(table_name):  # 確保表存在
+             cursor.execute(f"DROP TABLE IF EXISTS {table_name}")  # 使用 IF EXISTS 避免錯誤
+             logger.info(f"Dropped table {table_name}")
+     except Exception as e:
+         logger.error(f"Error dropping table {table_name}: {str(e)}", exc_info=True)
+
 
 def main():
     if len(sys.argv) < 2:
